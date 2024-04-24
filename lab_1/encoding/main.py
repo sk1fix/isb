@@ -23,6 +23,7 @@ def encryption(path: str) -> None:
     except:
         print('No such file or directory')
 
+
 def main():
     encryption('D:/Ycheba/isb/lab_1/encoding/text.txt')
 
