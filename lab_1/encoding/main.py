@@ -8,18 +8,20 @@ def encryption(path: str) -> None:
            'Т': 'Q', 'У': 'U', 'Ф': 'F', 'Х': 'M', 'Ц': 'E', 'Ч': 'B', 'Ш': 'C', 'Щ': 'р', 'Ъ': 'к', 'Ы': 'й', 'Ь': 'ш', 'Э': 'ж', 'Ю': 'я',
            'Я': 'с', '0': '9', '1': '7', '2': '8', '3': '0', '4': '2', '5': '6', '6': '4', '7': '1', '8': '3', '9': '5'}
 
-    with open(path, 'r', encoding='UTF-8') as file:
-        with open('D:/Ycheba/isb/lab_1/encoding/dec.txt', 'w+', encoding='UTF-8') as write_f:
-            for line in file:
-                temp = ''
-                line = line.strip()
-                for i in line:
-                    try:
-                        temp += key[str(i)]
-                    except:
-                        temp += str(i)
-                write_f.write(temp + '\n')
-
+    try:
+        with open(path, 'r', encoding='UTF-8') as file:
+            with open('D:/Ycheba/isb/lab_1/encoding/dec.txt', 'w+', encoding='UTF-8') as write_f:
+                for line in file:
+                    temp = ''
+                    line = line.strip()
+                    for i in line:
+                        try:
+                            temp += key[str(i)]
+                        except:
+                            temp += str(i)
+                    write_f.write(temp + '\n')
+    except:
+        print('No such file or directory')
 
 def main():
     encryption('D:/Ycheba/isb/lab_1/encoding/text.txt')
