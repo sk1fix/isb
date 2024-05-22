@@ -3,9 +3,14 @@ import paths
 
 
 def reading_files(path: str) -> str:
-    '''
-        The function reads the text from the file
-    '''
+    """function that can read data from .txt file
+
+    Args:
+        path (str): path to file
+
+    Returns:
+        str: what the file contains
+    """
     try:
         with open(path, 'r', encoding='utf-8') as file:
             return file.read()
@@ -14,9 +19,12 @@ def reading_files(path: str) -> str:
 
 
 def write_to_file(path: str, text: str) -> None:
-    '''
-        The function writes text to a file
-    '''
+    """function that can write data to .txt file
+
+    Args:
+        path (str): path to file
+        text (str): what we need to write in file
+    """
     try:
         with open(path, 'a', encoding='utf-8') as file:
             file.write(text)
@@ -27,6 +35,8 @@ def write_to_file(path: str, text: str) -> None:
 def read_key(path: str) -> dict:
     '''
         The function reads the key from the json file
+    Args:
+        path (str): path to file
     '''
     try:
         with open(path, 'r', encoding='utf-8') as file:
@@ -36,6 +46,12 @@ def read_key(path: str) -> dict:
 
 
 def frequency_analysis(read_path: str, write_path: str) -> None:
+    """function of calculation frequency in text
+
+    Args:
+        read_path (str): file with original text
+
+    """
     key = {}
     k = 0
     a = []
@@ -57,6 +73,12 @@ def frequency_analysis(read_path: str, write_path: str) -> None:
 
 
 def encryption(path: str) -> None:
+    """function that encrypts text
+
+    Args:
+        path (str): file with original text
+
+    """
     key = read_key(paths.KEY_ENCODING)
     file = reading_files(path)
     for line in file:
@@ -69,5 +91,26 @@ def encryption(path: str) -> None:
         write_to_file(paths.DECODING_RESULT, temp)
 
 
+def decoding(path: str) -> None:
+    """function that decrypts text
+
+    Args:
+        path (str): file with original text
+
+    """
+    key = read_key(paths.KEY_DECODING)
+    file = reading_files(path)
+    for line in file:
+        temp = ''
+        for i in line:
+            if i in key:
+                temp += key[i]
+            else:
+                temp += i
+        write_to_file(paths.ENCODING_RESULT, temp)
+
+
 if __name__ == "__main__":
     encryption(paths.BEGINING_DECODING_TXT)
+    frequency_analysis(paths.BEGINING_ENCODING_TXT, paths.FREQUENCY_RESULT)
+    decoding(paths.BEGINING_ENCODING_TXT)
