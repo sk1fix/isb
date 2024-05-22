@@ -1,5 +1,4 @@
 import json
-import paths
 
 
 def reading_files(path: str) -> str:
@@ -39,8 +38,8 @@ def frequency_analysis(read_path: str, write_path: str) -> None:
     key = {}
     k = 0
     a = []
-    read_file = reading_files(read_path)
-
+    read_file=reading_files(read_path)
+    
     for line in read_file:
         temp = ''
         for i in line:
@@ -53,21 +52,6 @@ def frequency_analysis(read_path: str, write_path: str) -> None:
         a.append([str(i), key[i]/k])
     sorted_data = sorted(a, key=lambda x: x[1], reverse=True)
     for i in sorted_data:
-        write_to_file(write_path, f"{i[0]} : {str(i[1])}\n")
+        write_to_file(write_path,f"{i[0]} : {str(i[1])}\n")
+    
 
-
-def encryption(path: str) -> None:
-    key = read_key(paths.KEY_ENCODING)
-    file = reading_files(path)
-    for line in file:
-        temp = ''
-        for i in line:
-            if i in key:
-                temp += key[i]
-            else:
-                temp += i
-        write_to_file(paths.DECODING_RESULT, temp)
-
-
-if __name__ == "__main__":
-    encryption(paths.BEGINING_DECODING_TXT)
