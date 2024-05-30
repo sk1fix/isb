@@ -60,9 +60,9 @@ def frequency_analysis(read_path: str, write_path: str) -> None:
     for line in read_file:
         temp = ''
         for i in line:
-            try:
+            if i in key:
                 key[i] += 1
-            except:
+            else:
                 key[i] = 0
             k += 1
     for i in key:
