@@ -1,7 +1,0 @@
-KEY_ENCODING = 'lab_1/encoding/key.json'
-KEY_DECODING = 'lab_1/decoding/key.json'
-ENCODING_RESULT = 'lab_1/decoding/decod.txt'
-DECODING_RESULT = 'lab_1/encoding/encod.txt'
-FREQUENCY_RESULT = 'lab_1/decoding/freq.txt'
-BEGINING_ENCODING_TXT = 'lab_1/decoding/code1.txt'
-BEGINING_DECODING_TXT = 'lab_1/encoding/text.txt'
