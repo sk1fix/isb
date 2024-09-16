@@ -1,5 +1,4 @@
 import json
-import paths
 
 
 def read_json(path: str) -> dict:
