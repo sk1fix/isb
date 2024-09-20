@@ -1,5 +1,3 @@
-import logging
-
 from typing import Union
 
 from cryptography.hazmat.primitives import hashes
