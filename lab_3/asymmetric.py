@@ -1,5 +1,3 @@
-from typing import Union
-
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric import rsa, padding
 
@@ -8,39 +6,41 @@ class AsymerticEncryption:
     """
     Class for asymmetric encryption
     """
-    private_key = None
-    public_key = None
-    public_key_path = None
-    private_key_path = None
-    
-    @staticmethod
-    def generate_keys(self):
-        """
-        Generates keys for asymmetric encrytpion
-        :param length: length of key
-        """
-        keys = rsa.generate_private_key(public_exponent=65537, key_size=2048)
-        self.private_key = keys
-        self.public_key = keys.public_key()
 
     @staticmethod
-    def encrypt_data(key: bytes, data: bytes) -> Union[bytes, None]:
+    def generate_keys() -> tuple:
         """
-        Encrypts a data using asymmetric algorithm
-        :param key: public key in bytes for asymmetric encrytpion
-        :param data: data for asymmetric encryption
-        :return: encoded data, None if error
+        Generates RSA key pair.
+        :return: tuple (private_key, public_key)
         """
-
-        return key.encrypt(data, padding.OAEP(mgf=padding.MGF1(algorithm=hashes.SHA256()), algorithm=hashes.SHA256(), label=None))
+        private_key = rsa.generate_private_key(
+            public_exponent=65537, key_size=2048)
+        return private_key, private_key.public_key()
 
     @staticmethod
-    def decrypt_data(key: bytes, data: bytes) -> Union[bytes, None]:
+    def encrypt_data(public_key, data: bytes) -> bytes:
         """
-        Decrypts a data using asymmetric algorithm
-        :param key: private key in bytes for decrypting
-        :param data: encrypted data
-        :return: decrypted data, None if error
+        Encrypts data using the public key.
+        :param public_key: public RSA key for encryption
+        :param data: data to encrypt
+        :return: encrypted data
         """
+        return public_key.encrypt(
+            data,
+            padding.OAEP(mgf=padding.MGF1(algorithm=hashes.SHA256()),
+                         algorithm=hashes.SHA256(), label=None)
+        )
 
-        return key.decrypt(data, padding.OAEP(mgf=padding.MGF1(algorithm=hashes.SHA256()), algorithm=hashes.SHA256(), label=None))
+    @staticmethod
+    def decrypt_data(private_key, encrypted_data: bytes) -> bytes:
+        """
+        Decrypts data using the private key.
+        :param private_key: private RSA key for decryption
+        :param encrypted_data: encrypted data
+        :return: decrypted data
+        """
+        return private_key.decrypt(
+            encrypted_data,
+            padding.OAEP(mgf=padding.MGF1(algorithm=hashes.SHA256()),
+                         algorithm=hashes.SHA256(), label=None)
+        )
